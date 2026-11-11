@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://d1i8pmhei1yll"]
+
+[ext_resource type="Script" uid="uid://corpnm4en6wgs" path="res://scripts/components/HealthComponent.cs" id="1_6qrdm"]
+[ext_resource type="Script" uid="uid://clook00sjgdrx" path="res://scripts/enemies/Crawler.cs" id="1_egeky"]
+[ext_resource type="Script" uid="uid://c67ikm26gsi5w" path="res://scripts/components/MoveComponent.cs" id="2_egeky"]
+[ext_resource type="Script" uid="uid://fyilrlue45yq" path="res://scripts/components/DamagingComponent.cs" id="3_ak7ju"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rub7e"]
+albedo_color = Color(0.9843137, 0.015686275, 0.015686275, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_dx1rm"]
+material = SubResource("StandardMaterial3D_rub7e")
+height = 1.5
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v7bmb"]
+height = 1.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ntbkr"]
+radius = 1.5
+
+[node name="Crawler" type="CharacterBody3D" unique_id=1340681160 groups=["enemies"]]
+collision_layer = 4
+collision_mask = 11
+script = ExtResource("1_egeky")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=743600967]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+mesh = SubResource("CapsuleMesh_dx1rm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1822900079]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("CapsuleShape3D_v7bmb")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=973950189]
+script = ExtResource("1_6qrdm")
+metadata/_custom_type_script = "uid://corpnm4en6wgs"
+
+[node name="MoveComponent" type="Node" parent="." unique_id=1871926901]
+script = ExtResource("2_egeky")
+stopDistance = 2.0
+metadata/_custom_type_script = "uid://c67ikm26gsi5w"
+
+[node name="DamageTimer" type="Timer" parent="." unique_id=407624635]
+
+[node name="DamagingComponent" type="Area3D" parent="." unique_id=876108963]
+collision_layer = 0
+collision_mask = 32
+script = ExtResource("3_ak7ju")
+metadata/_custom_type_script = "uid://fyilrlue45yq"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamagingComponent" unique_id=827663215]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("SphereShape3D_ntbkr")

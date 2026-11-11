@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://50a8k2hn1uve"]
+
+[ext_resource type="Script" uid="uid://bf7kv302tas6" path="res://scripts/projectiles/Bullet.cs" id="1_887fd"]
+[ext_resource type="Script" uid="uid://fyilrlue45yq" path="res://scripts/components/DamagingComponent.cs" id="2_15ivv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cfd42"]
+albedo_color = Color(0.003921569, 1, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ntbkr"]
+material = SubResource("StandardMaterial3D_cfd42")
+radius = 0.15
+height = 0.3
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_77l84"]
+radius = 0.15
+
+[node name="Bullet" type="Area3D" unique_id=680465368]
+collision_layer = 16
+collision_mask = 47
+script = ExtResource("1_887fd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=232843907]
+mesh = SubResource("SphereMesh_ntbkr")
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="." unique_id=640055221]
+aabb = AABB(-0.2, -0.2, -0.2, 0.4, 0.4, 0.4)
+
+[node name="DamagingComponent" type="Area3D" parent="." unique_id=996091919]
+collision_layer = 16
+collision_mask = 47
+script = ExtResource("2_15ivv")
+metadata/_custom_type_script = "uid://fyilrlue45yq"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamagingComponent" unique_id=1125579184]
+shape = SubResource("SphereShape3D_77l84")

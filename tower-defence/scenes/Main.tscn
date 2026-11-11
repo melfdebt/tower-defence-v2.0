@@ -1,0 +1,185 @@
+[gd_scene format=3 uid="uid://cn2au0c4a3lyu"]
+
+[ext_resource type="PackedScene" uid="uid://cyu2ax15bptul" path="res://scenes/player/player.tscn" id="1_elqb8"]
+[ext_resource type="PackedScene" uid="uid://bx300868jt62g" path="res://scenes/towers/tower.tscn" id="2_rarhs"]
+[ext_resource type="PackedScene" uid="uid://b27eegnueu6ys" path="res://scenes/enemies/enemy.tscn" id="3_vcsgt"]
+[ext_resource type="PackedScene" uid="uid://m4llt3qg2jeo" path="res://scenes/core/core.tscn" id="4_c01mt"]
+[ext_resource type="PackedScene" uid="uid://d1i8pmhei1yll" path="res://scenes/enemies/Crawler.tscn" id="5_nxtc6"]
+[ext_resource type="Script" uid="uid://dd4oldh5vobww" path="res://scripts/core/GameManager.cs" id="5_vcsgt"]
+[ext_resource type="PackedScene" uid="uid://ll4m3kgkya03" path="res://scenes/ui/GameOver.tscn" id="6_c01mt"]
+[ext_resource type="PackedScene" uid="uid://dbsifnpygngnu" path="res://scenes/towers/ExplosionTower.tscn" id="6_jlsqs"]
+[ext_resource type="Script" uid="uid://bvi8i2cawmbde" path="res://scripts/towers/BuildingManager.cs" id="9_q8u5g"]
+[ext_resource type="PackedScene" uid="uid://h2x6m3421qa4" path="res://scenes/towers/BasicTowerPreview.tscn" id="10_lhr70"]
+[ext_resource type="PackedScene" uid="uid://b77m2o55uluxy" path="res://scenes/towers/FreezeTower.tscn" id="11_3p2gp"]
+[ext_resource type="Material" uid="uid://brh6nxwlr3lv" path="res://materials/PreviewValid.tres" id="11_bjd11"]
+[ext_resource type="Material" uid="uid://cqs3mnom1bkod" path="res://materials/PreviewInvalid.tres" id="12_qmy6f"]
+[ext_resource type="Script" uid="uid://2vxyxbfj53t" path="res://scripts/core/WaveManager.cs" id="14_mwfav"]
+[ext_resource type="Script" uid="uid://d1hla7a3dnfm7" path="res://scripts/core/HUD.cs" id="15_3p2gp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rub7e"]
+albedo_color = Color(0.4075654, 0.40756536, 0.40756533, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ntbkr"]
+size = Vector3(36, 0.5, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i75m2"]
+size = Vector3(36, 0.5, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ntbkr"]
+size = Vector3(36, 3, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rub7e"]
+size = Vector3(36, 3, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_trhxe"]
+size = Vector3(0.5, 3, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kuxyh"]
+size = Vector3(0.5, 3, 20)
+
+[node name="Node3D" type="Node3D" unique_id=884293041]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=985807922]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1931258598]
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=366567263]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 30, 0)
+projection = 1
+size = 20.0
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=953151323]
+collision_mask = 14
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=1468454149]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+material_override = SubResource("StandardMaterial3D_rub7e")
+mesh = SubResource("BoxMesh_ntbkr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=145592452]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_i75m2")
+
+[node name="Entities" type="Node3D" parent="." unique_id=1891456569]
+
+[node name="Player" parent="Entities" unique_id=1714781266 groups=["player"] instance=ExtResource("1_elqb8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+
+[node name="Tower" parent="Entities" unique_id=1090997550 groups=["towers"] instance=ExtResource("2_rarhs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -5)
+collision_mask = 21
+
+[node name="Core" parent="Entities" unique_id=1339607843 instance=ExtResource("4_c01mt")]
+
+[node name="ExplosionTower" parent="Entities" unique_id=24610309 groups=["towers"] instance=ExtResource("6_jlsqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 5)
+
+[node name="GameManager" type="Node" parent="." unique_id=491423149]
+script = ExtResource("5_vcsgt")
+
+[node name="GameOver" parent="." unique_id=237215928 instance=ExtResource("6_c01mt")]
+
+[node name="BuildingManager" type="Node3D" parent="." unique_id=1593160221]
+script = ExtResource("9_q8u5g")
+PreviewScene = ExtResource("10_lhr70")
+TowerScene = ExtResource("2_rarhs")
+BasicTowerScene = ExtResource("2_rarhs")
+FreezeTowerScene = ExtResource("11_3p2gp")
+ExplosionTowerScene = ExtResource("6_jlsqs")
+ValidMaterial = ExtResource("11_bjd11")
+InvalidMaterial = ExtResource("12_qmy6f")
+
+[node name="TowerNameLabel" type="Label3D" parent="BuildingManager" unique_id=512077329]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+billboard = 1
+text = "Basic Tower"
+font_size = 48
+
+[node name="Walls" type="StaticBody3D" parent="." unique_id=69809427]
+collision_mask = 2
+
+[node name="North" type="CollisionShape3D" parent="Walls" unique_id=919865450]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -10)
+shape = SubResource("BoxShape3D_ntbkr")
+
+[node name="South" type="CollisionShape3D" parent="Walls" unique_id=1654753662]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 10)
+shape = SubResource("BoxShape3D_rub7e")
+
+[node name="West" type="CollisionShape3D" parent="Walls" unique_id=466740810]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 1.5, 0)
+shape = SubResource("BoxShape3D_trhxe")
+
+[node name="East" type="CollisionShape3D" parent="Walls" unique_id=2070066410]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 1.5, 0)
+shape = SubResource("BoxShape3D_kuxyh")
+
+[node name="WaveManager" type="Node" parent="." unique_id=1758142866 node_paths=PackedStringArray("SpawnPoints")]
+script = ExtResource("14_mwfav")
+EnemyScenes = Array[PackedScene]([ExtResource("3_vcsgt"), ExtResource("5_nxtc6")])
+SpawnPoints = [NodePath("SpawnPoints/SpawnPoint1"), NodePath("SpawnPoints/SpawnPoint2"), NodePath("SpawnPoints/SpawnPoint3"), NodePath("SpawnPoints/SpawnPoint4")]
+metadata/_custom_type_script = "uid://2vxyxbfj53t"
+
+[node name="SpawnPoints" type="Node3D" parent="WaveManager" unique_id=1231451497]
+
+[node name="SpawnPoint1" type="Marker3D" parent="WaveManager/SpawnPoints" unique_id=1098543301]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.5)
+
+[node name="SpawnPoint2" type="Marker3D" parent="WaveManager/SpawnPoints" unique_id=1924211865]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.5)
+
+[node name="SpawnPoint3" type="Marker3D" parent="WaveManager/SpawnPoints" unique_id=1018845636]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.5, 0, 0)
+
+[node name="SpawnPoint4" type="Marker3D" parent="WaveManager/SpawnPoints" unique_id=1386574752]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5, 0, 0)
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=137029422]
+script = ExtResource("15_3p2gp")
+
+[node name="UI" type="Control" parent="HUD" unique_id=135031637]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="WaveLabel" type="Label" parent="HUD/UI" unique_id=1414644660]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 60.0
+offset_bottom = 43.0
+theme_override_font_sizes/font_size = 24
+text = "ВОЛНА: 1"
+vertical_alignment = 1
+
+[node name="EnemiesLabel" type="Label" parent="HUD/UI" unique_id=1357458507]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 55.0
+offset_right = 60.0
+offset_bottom = 78.0
+theme_override_font_sizes/font_size = 24
+text = "ВРАГИ: 3"
+
+[node name="HPLabel" type="Label" parent="HUD/UI" unique_id=1439230594]
+layout_mode = 0
+offset_left = 940.0
+offset_top = 20.0
+offset_right = 1138.0
+offset_bottom = 54.0
+theme_override_font_sizes/font_size = 24
+text = "ИГРОК: 100 / 100"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="CoreHealthLabel" type="Label" parent="HUD/UI" unique_id=1736028429]
+layout_mode = 0
+offset_left = 956.0
+offset_top = 55.0
+offset_right = 1139.0
+offset_bottom = 89.0
+theme_override_font_sizes/font_size = 24
+text = "ЯДРО: 500 / 500"
+horizontal_alignment = 2
+vertical_alignment = 1

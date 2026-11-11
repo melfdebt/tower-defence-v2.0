@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://m4llt3qg2jeo"]
+
+[ext_resource type="Script" uid="uid://corpnm4en6wgs" path="res://scripts/components/HealthComponent.cs" id="1_3swme"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ntbkr"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rub7e"]
+size = Vector3(2, 2, 2)
+
+[node name="Core" type="StaticBody3D" unique_id=1339607843 groups=["core"]]
+collision_layer = 32
+collision_mask = 21
+
+[node name="HealthComponent" type="Node" parent="." unique_id=2098256300]
+script = ExtResource("1_3swme")
+MaxHealth = 500.0
+DestroyOwner = false
+metadata/_custom_type_script = "uid://corpnm4en6wgs"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=721896852]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("BoxMesh_ntbkr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=365789008]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_rub7e")

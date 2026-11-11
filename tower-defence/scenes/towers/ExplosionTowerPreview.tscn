@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://cghhidfu8anoo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_58ejg"]
+transparency = 1
+albedo_color = Color(1, 0.5137255, 0.050980393, 0.39215687)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_fdbu4"]
+top_radius = 0.7
+bottom_radius = 0.7
+height = 1.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7m3l0"]
+transparency = 1
+albedo_color = Color(0.99215686, 0.5764706, 0.015686275, 0.39215687)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_kd3b3"]
+top_radius = 0.4
+bottom_radius = 0.4
+
+[node name="ExplosionTowerPreview" type="Node3D" unique_id=1157186828]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1169863453]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+material_override = SubResource("StandardMaterial3D_58ejg")
+mesh = SubResource("CylinderMesh_fdbu4")
+
+[node name="Turret" type="Node3D" parent="." unique_id=1205560067]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Turret" unique_id=381962281]
+transform = Transform3D(1.2, 0, 0, 0, -5.2453668e-08, -1.2, 0, 1.2, -5.2453668e-08, 0, 0.9, -0.7)
+material_override = SubResource("StandardMaterial3D_7m3l0")
+mesh = SubResource("CylinderMesh_kd3b3")

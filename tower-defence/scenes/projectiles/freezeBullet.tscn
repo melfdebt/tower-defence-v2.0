@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dntrodcnqiqfi"]
+
+[ext_resource type="Script" uid="uid://i4tu1le2sjfx" path="res://scripts/components/FreezeComponent.cs" id="1_40dl2"]
+[ext_resource type="Script" uid="uid://bf7kv302tas6" path="res://scripts/projectiles/Bullet.cs" id="1_bdcnj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bdcnj"]
+albedo_color = Color(0.6039216, 0.015686275, 0.9607843, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_omci6"]
+material = SubResource("StandardMaterial3D_bdcnj")
+radius = 0.15
+height = 0.3
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bdcnj"]
+radius = 0.15
+
+[node name="FreezeBullet" type="Area3D" unique_id=872266816]
+collision_layer = 16
+collision_mask = 47
+script = ExtResource("1_bdcnj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=221087363]
+mesh = SubResource("SphereMesh_omci6")
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="." unique_id=1844972555]
+aabb = AABB(-0.2, -0.2, -0.2, 0.4, 0.4, 0.4)
+
+[node name="DamagingComponent" type="Area3D" parent="." unique_id=1479077993]
+collision_layer = 16
+collision_mask = 5
+script = ExtResource("1_40dl2")
+metadata/_custom_type_script = "uid://i4tu1le2sjfx"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamagingComponent" unique_id=1340307718]
+shape = SubResource("SphereShape3D_bdcnj")

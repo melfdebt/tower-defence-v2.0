@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://cyu2ax15bptul"]
+
+[ext_resource type="Script" uid="uid://corpnm4en6wgs" path="res://scripts/components/HealthComponent.cs" id="1_8afob"]
+[ext_resource type="Script" uid="uid://cliuj4ewpwe04" path="res://scripts/player/Player.cs" id="1_dovo2"]
+[ext_resource type="Script" uid="uid://7wbcuadf13tf" path="res://scripts/components/ShootComponent.cs" id="3_lvxji"]
+[ext_resource type="PackedScene" uid="uid://50a8k2hn1uve" path="res://scenes/projectiles/playerBullet.tscn" id="4_p47bc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rub7e"]
+albedo_color = Color(0, 0.90168154, 0.0036891259, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ntbkr"]
+material = SubResource("StandardMaterial3D_rub7e")
+radius = 0.4
+height = 1.8
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i75m2"]
+radius = 0.4
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lvxji"]
+albedo_color = Color(0.09019608, 0.93333334, 0.09803922, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_rub7e"]
+material = SubResource("StandardMaterial3D_lvxji")
+radius = 0.4
+height = 1.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ntbkr"]
+radius = 0.4
+height = 1.0
+
+[node name="Player" type="CharacterBody3D" unique_id=1714781266]
+collision_layer = 2
+collision_mask = 45
+script = ExtResource("1_dovo2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=523416877]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("CapsuleMesh_ntbkr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1642039588]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_i75m2")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=828492342]
+script = ExtResource("1_8afob")
+metadata/_custom_type_script = "uid://corpnm4en6wgs"
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=59586132]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.5, -0.25)
+mesh = SubResource("CapsuleMesh_rub7e")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=564700976]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.5, -0.25)
+shape = SubResource("CapsuleShape3D_ntbkr")
+
+[node name="ShootComponent" type="Node" parent="." unique_id=21777709]
+script = ExtResource("3_lvxji")
+BulletScene = ExtResource("4_p47bc")
+metadata/_custom_type_script = "uid://7wbcuadf13tf"
